@@ -21,7 +21,6 @@ README = open(os.path.join(here, 'README.txt')).read()
 setup_requirements = []
 
 install_requirements = [
-
     ]
 
 tests_requirements = install_requirements + [
