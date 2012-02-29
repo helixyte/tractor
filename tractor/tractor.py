@@ -5,9 +5,9 @@ See LICENSE.txt for licensing, CONTRIBUTORS.txt for contributor information.
 Created on Jan 06, 2012.
 """
 
-import attachment
-import factory
-import ticket
+from . import attachment
+from . import factory
+from . import ticket
 
 __docformat__ = 'reStructuredText en'
 

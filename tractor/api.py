@@ -5,15 +5,13 @@ See LICENSE.txt for licensing, CONTRIBUTORS.txt for contributor information.
 Created on Jan 06, 2012.
 """
 
-from attachment import AttachmentWrapper
-from ticket import OwnerAttribute
-from ticket import STATUS_ATTRIBUTE_VALUES
-from ticket import TicketWrapper
+from .attachment import AttachmentWrapper
+from .ticket import OwnerAttribute
+from .ticket import STATUS_ATTRIBUTE_VALUES
+from .ticket import TicketWrapper
 from xmlrpclib import ServerProxy
 
-
 __docformat__ = 'reStructuredText en'
-
 __all__ = ['TractorApi',
            'Tractor']
 
@@ -40,7 +38,7 @@ class TractorApi(object):
         meth = conn
         for item in method_name.split('.'):
             meth = getattr(meth, item)
-        return meth(*args) #pylint: disable=W0142
+        return meth(*args)
 
     def create_ticket(self, ticket_wrapper, notify=True):
         """

@@ -4,15 +4,14 @@ See LICENSE.txt for licensing, CONTRIBUTORS.txt for contributor information.
 
 Created on Jan 06, 2012.
 """
+
+from .api import Tractor
+from .dummy import DummyTractor
 from ConfigParser import ParsingError
 from ConfigParser import SafeConfigParser
 from StringIO import StringIO
-from api import Tractor
-from dummy import DummyTractor
-
 
 __docformat__ = 'reStructuredText en'
-
 __all__ = ['TractorConfig'
            'make_api_from_config',
            'make_api']

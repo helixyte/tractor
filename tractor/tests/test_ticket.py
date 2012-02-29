@@ -4,21 +4,20 @@ See LICENSE.txt for licensing, CONTRIBUTORS.txt for contributor information.
 
 Created on Jan 06, 2012.
 """
-from datetime import datetime
-from tests.base import BaseTestCase
-from ticket import ATTRIBUTE_NAMES
-from ticket import ATTRIBUTE_OPTIONS
-from ticket import DescriptionAttribute
-from ticket import PRIORITY_ATTRIBUTE_VALUES
-from ticket import PriorityAttribute
-from ticket import SEVERITY_ATTRIBUTE_VALUES
-from ticket import STATUS_ATTRIBUTE_VALUES
-from ticket import SummaryAttribute
-from ticket import TYPE_ATTRIBUTE_VALUES
-from ticket import TicketWrapper
-from ticket import TicketAttribute
 
-#pylint: disable=W0201
+from datetime import datetime
+from tractor.tests.base import BaseTestCase
+from tractor.ticket import ATTRIBUTE_NAMES
+from tractor.ticket import ATTRIBUTE_OPTIONS
+from tractor.ticket import DescriptionAttribute
+from tractor.ticket import PRIORITY_ATTRIBUTE_VALUES
+from tractor.ticket import PriorityAttribute
+from tractor.ticket import SEVERITY_ATTRIBUTE_VALUES
+from tractor.ticket import STATUS_ATTRIBUTE_VALUES
+from tractor.ticket import SummaryAttribute
+from tractor.ticket import TYPE_ATTRIBUTE_VALUES
+from tractor.ticket import TicketAttribute
+from tractor.ticket import TicketWrapper
 
 
 class TicketAttributeTest(BaseTestCase):
@@ -43,10 +42,8 @@ class TicketAttributeTest(BaseTestCase):
         self.assert_true(isinstance(prio_attr, PriorityAttribute))
         self.assert_equal(prio_attr.value, self.prio_value)
         error_values = (self.summ_name, self.summ_value, test_lookup)
-        #pylint: disable=W0142
         self.assert_raises(KeyError, TicketAttribute.create_by_name,
                            *error_values)
-        #pylint: enable=W0142
 
 
 class TicketTestCase(BaseTestCase):

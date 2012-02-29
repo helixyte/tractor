@@ -4,29 +4,25 @@ See LICENSE.txt for licensing, CONTRIBUTORS.txt for contributor information.
 
 Created on Jan 06, 2012.
 """
+
 from StringIO import StringIO
-from attachment import AttachmentWrapper
-from dummy import DummyAttachment
-from dummy import DummyTicket
-from dummy import DummyTrac
-from dummy import GET_ONLY_USER
-from dummy import INVALID_PASSWORD
-from dummy import INVALID_REALM
-from dummy import INVALID_USER
-from tests.base import BaseTestCase
-from ticket import ATTRIBUTE_NAMES
-from ticket import PRIORITY_ATTRIBUTE_VALUES
-from ticket import SEVERITY_ATTRIBUTE_VALUES
-from ticket import STATUS_ATTRIBUTE_VALUES
-from ticket import TYPE_ATTRIBUTE_VALUES
-from ticket import TicketWrapper
+from tractor.attachment import AttachmentWrapper
+from tractor.dummy import DummyAttachment
+from tractor.dummy import DummyTicket
+from tractor.dummy import DummyTrac
+from tractor.dummy import GET_ONLY_USER
+from tractor.dummy import INVALID_PASSWORD
+from tractor.dummy import INVALID_REALM
+from tractor.dummy import INVALID_USER
+from tractor.tests.base import BaseTestCase
+from tractor.ticket import ATTRIBUTE_NAMES
+from tractor.ticket import PRIORITY_ATTRIBUTE_VALUES
+from tractor.ticket import SEVERITY_ATTRIBUTE_VALUES
+from tractor.ticket import STATUS_ATTRIBUTE_VALUES
+from tractor.ticket import TYPE_ATTRIBUTE_VALUES
+from tractor.ticket import TicketWrapper
 from xmlrpclib import Fault
 from xmlrpclib import ProtocolError
-
-
-#pylint: disable=W0201
-#pylint: disable=W0142
-
 
 
 class DummyAttachmentTestCase(BaseTestCase):
@@ -265,7 +261,7 @@ class DummyTracTestCase(BaseTestCase):
             if value == '': value = None
             self.assert_equal(getattr(ticket, attr_name), value)
         # all permissions
-        self.get_only = False
+        trac.get_only = False
         return_value = trac.get(ticket_id)
         self.assert_equal(len(return_value), 4)
         self.assert_equal(return_value[0], ticket_id)

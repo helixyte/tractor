@@ -5,12 +5,11 @@ See LICENSE.txt for licensing, CONTRIBUTORS.txt for contributor information.
 Created on Jan 06, 2012.
 """
 
-from xmlrpclib import Binary
 from StringIO import StringIO
+from xmlrpclib import Binary
 import zipfile
 
 __docformat__ = 'reStructuredText en'
-
 __all__ = ['AttachmentWrapper',
            'Base64Converter']
 

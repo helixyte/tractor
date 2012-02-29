@@ -5,18 +5,16 @@ See LICENSE.txt for licensing, CONTRIBUTORS.txt for contributor information.
 Created on Jan 06, 2012.
 """
 
-from api import TractorApi
-from attachment import AttachmentWrapper
-from attachment import Base64Converter
+from .api import TractorApi
+from .attachment import AttachmentWrapper
+from .attachment import Base64Converter
+from .ticket import ATTRIBUTE_NAMES
+from .ticket import TicketWrapper
 from datetime import datetime
-from ticket import ATTRIBUTE_NAMES
-from ticket import TicketWrapper
 from xmlrpclib import Fault
 from xmlrpclib import ProtocolError
 
-
 __docformat__ = 'reStructuredText en'
-
 __all__ = ['DUMMY_TRAC',
            'INVALID_USER',
            'GET_ONLY_USER',
@@ -27,7 +25,6 @@ __all__ = ['DUMMY_TRAC',
            'DummyTrac',
            'DummyTicket',
            'DummyAttachment']
-
 
 
 class DummyTractor(TractorApi):
@@ -137,13 +134,11 @@ class DummyTrac(object):
         if not attributes.has_key('owner'):
             attributes['owner'] = self.user
 
-        #pylint: disable=W0142
         self.ticket_counter += 1
         ticket = DummyTicket(ticket_id=self.ticket_counter,
                              summary=summary,
                              description=description, **attributes)
         self.__ticket_map[ticket.ticket_id] = ticket
-        #pylint: enable=W0142
         return ticket.ticket_id
 
     def get(self, ticket_id):

@@ -5,16 +5,10 @@ See LICENSE.txt for licensing, CONTRIBUTORS.txt for contributor information.
 Created on Jan 06, 2012.
 """
 
-
 from unittest import TestCase
 
-
-
 __docformat__ = 'reStructuredText en'
-__author__ = 'berger at cenix dot com'
-
 __all__ = ['BaseTestCase']
-
 
 
 class BaseTestCase(TestCase):

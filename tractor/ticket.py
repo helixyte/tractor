@@ -6,7 +6,6 @@ Created on Jan 06, 2012.
 """
 
 __docformat__ = 'reStructuredText en'
-
 __all__ = ['TicketWrapper'
            'TicketAttribute',
            'TicketAttributeValues',

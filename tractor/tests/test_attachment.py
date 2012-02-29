@@ -4,15 +4,15 @@ See LICENSE.txt for licensing, CONTRIBUTORS.txt for contributor information.
 
 Created on Jan 06, 2012.
 """
+
 from StringIO import StringIO
-from attachment import AttachmentWrapper
-from attachment import Base64Converter
 from datetime import datetime
-from tests.base import BaseTestCase
+from tractor.attachment import AttachmentWrapper
+from tractor.attachment import Base64Converter
+from tractor.tests.base import BaseTestCase
 from xmlrpclib import Binary
 import zipfile
 
-#pylint: disable=W0201
 
 class Base64ConverterTestCase(BaseTestCase):
 

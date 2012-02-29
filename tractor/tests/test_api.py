@@ -6,13 +6,13 @@ Created on Jan 06, 2012.
 """
 
 from pkg_resources import resource_filename # pylint: disable=E0611
-from tests.base import BaseTestCase
-from ticket import ATTRIBUTE_NAMES
-from ticket import OwnerAttribute
-from ticket import RESOLUTION_ATTRIBUTE_VALUES
-from ticket import ReporterAttribute
-from ticket import STATUS_ATTRIBUTE_VALUES
 from tractor.api import TractorApi
+from tractor.tests.base import BaseTestCase
+from tractor.ticket import ATTRIBUTE_NAMES
+from tractor.ticket import OwnerAttribute
+from tractor.ticket import RESOLUTION_ATTRIBUTE_VALUES
+from tractor.ticket import ReporterAttribute
+from tractor.ticket import STATUS_ATTRIBUTE_VALUES
 from tractor.tractor import AttachmentWrapper
 from tractor.tractor import Base64Converter
 from tractor.tractor import TicketWrapper
@@ -22,8 +22,6 @@ from tractor.tractor import make_api
 from tractor.tractor import make_api_from_config
 from xmlrpclib import Fault
 
-
-# pylint: disable=W0142
 
 class TractorApiTestCase(BaseTestCase):
 
