@@ -221,7 +221,7 @@ class TractorApi(object):
     def get_attachment(self, ticket_id, file_name):
         """
         Returns the content of the requested attachment as Binary -
-        use the :class:`tractor.attachment.Base64Converter` to decode it.
+        use the :class:`tractor.Base64Converter` to decode it.
         """
         if ticket_id is None:
             raise ValueError('The ticket ID must not be None!')
