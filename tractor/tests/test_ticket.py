@@ -18,6 +18,8 @@ from tractor.ticket import SummaryAttribute
 from tractor.ticket import TYPE_ATTRIBUTE_VALUES
 from tractor.ticket import TicketAttribute
 from tractor.ticket import TicketWrapper
+from tractor.ticket import create_wrapper_for_ticket_creation
+from tractor.ticket import create_wrapper_for_ticket_update
 
 
 class TicketAttributeTest(BaseTestCase):
@@ -75,6 +77,26 @@ class TicketTestCase(BaseTestCase):
         ticket2 = TicketWrapper(**self.init_data)
         for attr_name, exp_value in self.init_data.iteritems():
             self.assert_equal(getattr(ticket2, attr_name), exp_value)
+
+    def test_create_factory_method(self):
+        summary = 'Test Ticket'
+        description = 'Creation Factory Test.'
+        ticket = create_wrapper_for_ticket_creation(summary, description)
+        self.assert_is_none(ticket.ticket_id)
+        for attr_name in ATTRIBUTE_NAMES.keys():
+            if attr_name == SummaryAttribute.NAME:
+                self.assert_equal(getattr(ticket, attr_name), summary)
+            elif attr_name == DescriptionAttribute.NAME:
+                self.assert_equal(getattr(ticket, attr_name), description)
+            else:
+                self.assert_is_none(getattr(ticket, attr_name))
+
+    def test_update_factory_method(self):
+        ticket_id = 1
+        ticket = create_wrapper_for_ticket_update(ticket_id=ticket_id)
+        self.assert_equal(ticket.ticket_id, ticket_id)
+        for attr_name in ATTRIBUTE_NAMES.keys():
+            self.assert_is_none(getattr(ticket, attr_name))
 
     def test_create_from_trac_data(self):
         ticket_id = 123

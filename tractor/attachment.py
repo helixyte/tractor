@@ -122,19 +122,20 @@ class Base64Converter(object):
     @classmethod
     def encode_stream(cls, stream):
         """
-        Returns the encoded content of the stream.
+        A convenience method encoding the content of a stream.
+        Invokes :func:`encode_string`.
         """
         stream.seek(0)
-        content = stream.read()
-        return cls.encode_string(content)
+        return cls.encode_string(stream.read())
 
     @classmethod
     def encode_zip_stream(cls, zip_stream):
         """
-        Returns the encoded content of a zip stream.
+        A convenience method encoding the content of a zip stream.
+        Invokes :func:`encode_string`.
         """
         zip_stream.seek(0)
-        return Binary(zip_stream.getvalue())
+        return cls.encode_string(zip_stream.getvalue())
 
     @classmethod
     def decode_to_string(cls, base64_data):

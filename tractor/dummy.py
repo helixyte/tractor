@@ -5,7 +5,6 @@ See LICENSE.txt for licensing, CONTRIBUTORS.txt for contributor information.
 Created on Jan 06, 2012.
 """
 
-from .api import TractorApi
 from .attachment import AttachmentWrapper
 from .attachment import Base64Converter
 from .ticket import ATTRIBUTE_NAMES
@@ -15,38 +14,15 @@ from xmlrpclib import Fault
 from xmlrpclib import ProtocolError
 
 __docformat__ = 'reStructuredText en'
-__all__ = ['DUMMY_TRAC',
+__all__ = ['DummyConnection',
+           'DummyTrac',
+           'DummyTicket',
+           'DummyAttachment',
+           'DUMMY_TRAC',
            'INVALID_USER',
            'GET_ONLY_USER',
            'INVALID_PASSWORD',
-           'INVALID_REALM',
-           'DummyTractor'
-           'DummyConnection',
-           'DummyTrac',
-           'DummyTicket',
-           'DummyAttachment']
-
-
-class DummyTractor(TractorApi):
-
-    def _get_connection(self):
-        """
-        Returns a dummy connection that acts like a real connection.
-        """
-        is_valid_connection = False
-        get_only = True
-        url = 'http://%s:%s@%s' % (self._username, self._password,
-                                   self._realm)
-
-        if not self._realm == INVALID_REALM and \
-                                not self._username == INVALID_USER:
-            is_valid_connection = True
-
-        if not self._username == GET_ONLY_USER: get_only = False
-
-        return DummyConnection(get_only=get_only,
-                               is_valid_connection=is_valid_connection,
-                               url=url)
+           'INVALID_REALM']
 
 
 class DummyConnection(object):
@@ -352,7 +328,8 @@ class DummyTicket(TicketWrapper):
         """
         Deletes an attachment from the dummy ticket.
         """
-        if not self.__attachment_map.has_key(file_name): return False
+        if not self.__attachment_map.has_key(file_name):
+            return False
 
         del self.__attachment_map[file_name]
         return True
@@ -365,7 +342,8 @@ class DummyTicket(TicketWrapper):
         attributes = dict()
         for attr_name in ATTRIBUTE_NAMES.keys():
             value = getattr(self, attr_name)
-            if value is None: value = ''
+            if value is None:
+                value = ''
             attributes[attr_name] = value
         return (self.ticket_id, self.time, self.changetime,
                 attributes)

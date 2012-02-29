@@ -5,8 +5,8 @@ See LICENSE.txt for licensing, CONTRIBUTORS.txt for contributor information.
 Created on Jan 06, 2012.
 """
 
+from .api import DummyTractor
 from .api import Tractor
-from .dummy import DummyTractor
 from ConfigParser import ParsingError
 from ConfigParser import SafeConfigParser
 from StringIO import StringIO

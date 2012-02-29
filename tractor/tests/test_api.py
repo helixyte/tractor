@@ -6,6 +6,12 @@ Created on Jan 06, 2012.
 """
 
 from pkg_resources import resource_filename # pylint: disable=E0611
+from tractor import AttachmentWrapper
+from tractor import Base64Converter
+from tractor import TicketWrapper
+from tractor import create_wrapper_for_ticket_update
+from tractor import make_api
+from tractor import make_api_from_config
 from tractor.api import TractorApi
 from tractor.tests.base import BaseTestCase
 from tractor.ticket import ATTRIBUTE_NAMES
@@ -13,13 +19,6 @@ from tractor.ticket import OwnerAttribute
 from tractor.ticket import RESOLUTION_ATTRIBUTE_VALUES
 from tractor.ticket import ReporterAttribute
 from tractor.ticket import STATUS_ATTRIBUTE_VALUES
-from tractor.tractor import AttachmentWrapper
-from tractor.tractor import Base64Converter
-from tractor.tractor import TicketWrapper
-from tractor.tractor import create_wrapper_for_ticket_creation
-from tractor.tractor import create_wrapper_for_ticket_update
-from tractor.tractor import make_api
-from tractor.tractor import make_api_from_config
 from xmlrpclib import Fault
 
 
@@ -39,18 +38,6 @@ class TractorApiTestCase(BaseTestCase):
                                             description='Another Test Ticket.')
         ticket_id2 = api.create_ticket(t_wrapper2)
         self.assert_not_equal(ticket_id, ticket_id2)
-
-    def create_ticket_with_minimum_user_input(self):
-        t_wrapper = create_wrapper_for_ticket_creation(
-                                summary='Test Ticket.',
-                                description='A standard test ticket.')
-        self.assert_equal(t_wrapper.summary, 'Test Ticket.')
-        self.assert_equal(t_wrapper.description, 'A standard test ticket.')
-        create_attrs = t_wrapper.get_value_map_for_ticket_creation()
-        self.assert_is_not_none(create_attrs)
-        api = self.__create_api()
-        ticket_id = api.create_ticket(t_wrapper, False)
-        self.assert_is_not_none(ticket_id)
 
     def test_get_ticket(self):
         api = self.__create_api()
@@ -203,11 +190,14 @@ class TractorApiTestCase(BaseTestCase):
         self.assert_raises(ValueError, api.delete_attachment, *(ticket_id, None))
 
     def __create_api(self, **kw):
-        if not 'username' in kw: kw['username'] = 'test_user'
-        if not 'password' in kw: kw['password'] = 'password'
+        if not 'username' in kw:
+            kw['username'] = 'test_user'
+        if not 'password' in kw:
+            kw['password'] = 'password'
         if not 'realm' in kw:
             kw['realm'] = 'http://mycompany.com/mytrac/login/xmlrpc'
-        if not 'load_dummy' in kw: kw['load_dummy'] = True
+        if not 'load_dummy' in kw:
+            kw['load_dummy'] = True
         return make_api(**kw)
 
     def __create_ticket_wrapper(self, **kw):

@@ -6,7 +6,9 @@ Created on Jan 06, 2012.
 """
 
 __docformat__ = 'reStructuredText en'
-__all__ = ['TicketWrapper'
+__all__ = ['create_wrapper_for_ticket_creation',
+           'create_wrapper_for_ticket_update',
+           'TicketWrapper'
            'TicketAttribute',
            'TicketAttributeValues',
            'SummaryAttribute',
@@ -25,6 +27,56 @@ __all__ = ['TicketWrapper'
            'CcAttribute',
            'ATTRIBUTE_NAMES',
            'ATTRIBUTE_OPTIONS']
+
+
+def create_wrapper_for_ticket_creation(summary, description, **kw):
+    """
+    You can use this method to create a ticket wrapper that contains
+    all data required for a trac ticket creation.
+
+    The following keywords are optional:
+
+        * cc
+        * component
+        * keywords
+        * milestone
+        * owner
+        * priority
+        * reporter
+        * resolution
+        * severity
+        * status
+        * type
+        * version
+    """
+    return TicketWrapper(summary=summary,
+                  description=description,
+                  **kw)
+
+
+def create_wrapper_for_ticket_update(ticket_id, **kw):
+    """
+    You can use this method to create a ticket wrapper that contains
+    all data required for a trac ticket update.
+
+    The following keywords are optional:
+
+        * cc
+        * component
+        * description
+        * keywords
+        * milestone
+        * owner
+        * priority
+        * reporter
+        * resolution
+        * severity
+        * status
+        * summary
+        * type
+        * version
+    """
+    return TicketWrapper(ticket_id=ticket_id, **kw)
 
 
 class TicketWrapper(object):
@@ -54,11 +106,14 @@ class TicketWrapper(object):
         """
         Constructor for ticket wrappers. All arguments are optional.
 
-        However, if you are going to create a new ticket for the trac, you
+        However, if you are going to create a new trac ticket for the trac, you
         must at least pass the following arguments:
 
             * summary
             * description
+
+        If you are going to update an existing trac ticket, you have to pass
+        at least the ticket ID.
 
         :param attribute_names_lookup and attribute_options_lookup:
             These lookup serve the association of attribute names with
@@ -110,7 +165,8 @@ class TicketWrapper(object):
                         changetime=trac_ticket_data[2])
 
         for attr_name, attr_value in trac_ticket_data[3].iteritems():
-            if attr_value == '': attr_value = None
+            if attr_value == '':
+                attr_value = None
             setattr(ticket, attr_name, attr_value)
 
         return ticket
@@ -124,7 +180,8 @@ class TicketWrapper(object):
         :raises AttributeError: In case of invalid attribute name.
         :raises ValueError: In case of an invalid value.
         """
-        if value is None: value = getattr(self, attribute_name)
+        if value is None:
+            value = getattr(self, attribute_name)
         attr_cls = self.__attribute_names_lookup[attribute_name]
         options = self.__attribute_options_lookup[attribute_name]
 
@@ -169,7 +226,8 @@ class TicketWrapper(object):
                     value = attr_cls.DEFAULT_VALUE
 
             self.check_attribute_validity(attr_name, value)
-            if not value is None: value_map[attr_name] = value
+            if not value is None:
+                value_map[attr_name] = value
 
         return value_map
 
@@ -232,7 +290,8 @@ class TicketAttribute(object):
 
         #: The value of the attribute.
         self.value = value
-        if value is None: self.value = self.DEFAULT_VALUE
+        if value is None:
+            self.value = self.DEFAULT_VALUE
 
     @classmethod
     def create_by_name(cls, attribute_name, value, attribute_name_lookup=None):

@@ -6,6 +6,10 @@ Created on Jan 06, 2012.
 """
 
 from .attachment import AttachmentWrapper
+from .dummy import DummyConnection
+from .dummy import GET_ONLY_USER
+from .dummy import INVALID_REALM
+from .dummy import INVALID_USER
 from .ticket import OwnerAttribute
 from .ticket import STATUS_ATTRIBUTE_VALUES
 from .ticket import TicketWrapper
@@ -13,7 +17,8 @@ from xmlrpclib import ServerProxy
 
 __docformat__ = 'reStructuredText en'
 __all__ = ['TractorApi',
-           'Tractor']
+           'Tractor',
+           'DummyTractor']
 
 
 class TractorApi(object):
@@ -288,3 +293,25 @@ class Tractor(TractorApi):
             self._connection = ServerProxy(url)
         return self._connection
 
+
+class DummyTractor(TractorApi):
+
+    def _get_connection(self):
+        """
+        Returns a dummy connection that acts like a real connection.
+        """
+        is_valid_connection = False
+        get_only = True
+        url = 'http://%s:%s@%s' % (self._username, self._password,
+                                   self._realm)
+
+        if not self._realm == INVALID_REALM and \
+                                not self._username == INVALID_USER:
+            is_valid_connection = True
+
+        if not self._username == GET_ONLY_USER:
+            get_only = False
+
+        return DummyConnection(get_only=get_only,
+                               is_valid_connection=is_valid_connection,
+                               url=url)

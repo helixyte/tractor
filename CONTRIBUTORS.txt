@@ -1,2 +1,5 @@
 Anna-Antonia Berger - main developer
 Cenix BioScience, Dresden, Germany
+
+F. Oliver Gathmann - remarks and hints
+Cenix BioScience, Dresden, Germany

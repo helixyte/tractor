@@ -144,7 +144,8 @@ class DummyTicketTestCase(BaseTestCase):
         exp_attr = dict()
         for attr_name in ATTRIBUTE_NAMES.keys():
             value = getattr(ticket, attr_name)
-            if value is None: value = ''
+            if value is None:
+                value = ''
             exp_attr[attr_name] = value
         exp_data = (123, ticket.time, ticket.changetime, exp_attr)
         self.assert_equal(ticket.get_trac_data_tuple(), exp_data)
@@ -178,12 +179,14 @@ class DummyTracTestCase(BaseTestCase):
         return AttachmentWrapper(**att_init_data)
 
     def __alter_to_trac_with_invalid_connection(self, trac=None):
-        if trac is None: trac = DummyTrac()
+        if trac is None:
+            trac = DummyTrac()
         trac.is_valid_connection = False
         return trac
 
     def __alter_to_trac_with_get_only_permission(self, trac=None):
-        if trac is None: trac = DummyTrac()
+        if trac is None:
+            trac = DummyTrac()
         trac.is_valid_connection = True
         trac.get_only = True
         url = 'http://%s:%s@%s' % (GET_ONLY_USER, INVALID_PASSWORD,
@@ -192,7 +195,8 @@ class DummyTracTestCase(BaseTestCase):
         return trac
 
     def __alter_to_trac_with_all_permissions(self, trac=None):
-        if trac is None: trac = DummyTrac()
+        if trac is None:
+            trac = DummyTrac()
         trac.is_valid_connection = True
         trac.get_only = False
         url = 'http://%s:%s@%s' % (INVALID_USER, INVALID_PASSWORD,
@@ -258,7 +262,8 @@ class DummyTracTestCase(BaseTestCase):
         self.assert_equal(return_value[1], return_value[2]) # create & change
         attrs = return_value[3]
         for attr_name, value in attrs.iteritems():
-            if value == '': value = None
+            if value == '':
+                value = None
             self.assert_equal(getattr(ticket, attr_name), value)
         # all permissions
         trac.get_only = False
@@ -269,7 +274,8 @@ class DummyTracTestCase(BaseTestCase):
         self.assert_equal(return_value[1], return_value[2]) # create & change
         attrs = return_value[3]
         for attr_name, value in attrs.iteritems():
-            if value == '': value = None
+            if value == '':
+                value = None
             self.assert_equal(getattr(ticket, attr_name), value)
         # unknown ticket ID
         self.assert_raises(TypeError, trac.get, None)
@@ -311,7 +317,8 @@ class DummyTracTestCase(BaseTestCase):
                 value_map = create_attrs
             else:
                 value = getattr(ori_ticket, attr_name)
-                if value == '': value = None
+                if value == '':
+                    value = None
                 self.assert_equal(getattr(ori_ticket, attr_name), value)
                 continue
             self.assert_equal(value_map[attr_name], value)
