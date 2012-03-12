@@ -321,7 +321,7 @@ class TicketAttribute(object):
 class TicketAttributeValues(object):
     """
     The subclasses of this abstract class collect valid options for particular
-    ticket attribute types. The collections are registered in the the
+    ticket attribute types. The collections are registered in the
     ATTRIBUTE_OPTIONS lookup. If you prefer other values you can overwrite
     the classes and the lookup.
     """

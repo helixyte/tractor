@@ -128,7 +128,7 @@ class DummyTrac(object):
             raise TypeError('cannot marshal None unless allow_none is enabled')
         elif not self.__ticket_map.has_key(ticket_id):
             self.__raise_fault(meth_name,
-                               'TicketWrapper %s does not exist.' % (ticket_id))
+                               'Ticket %s does not exist.' % (ticket_id))
 
         ticket = self.__ticket_map[ticket_id]
         return ticket.get_trac_data_tuple()
@@ -145,7 +145,7 @@ class DummyTrac(object):
             raise TypeError('cannot marshal None unless allow_none is enabled')
         if not self.__ticket_map.has_key(ticket_id):
             self.__raise_fault(meth_name,
-                               'TicketWrapper %s does not exist.' % (ticket_id))
+                               'Ticket %s does not exist.' % (ticket_id))
         if not isinstance(attributes, dict):
             self.__raise_fault(meth_name, '\'%s\' has not attribute ' \
                             '\'iteritems()\'' % attributes.__class__.__name__)
@@ -169,7 +169,7 @@ class DummyTrac(object):
             raise TypeError('cannot marshal None unless allow_none is enabled')
         elif not self.__ticket_map.has_key(ticket_id):
             self.__raise_fault(meth_name,
-                               'TicketWrapper %s does not exist.' % (ticket_id))
+                               'Ticket %s does not exist.' % (ticket_id))
 
         del self.__ticket_map[ticket_id]
         return 0
@@ -187,7 +187,7 @@ class DummyTrac(object):
             raise TypeError('cannot marshal None unless allow_none is enabled')
         if not self.__ticket_map.has_key(ticket_id):
             self.__raise_fault(meth_name,
-                               'TicketWrapper %s does not exist.' % (ticket_id))
+                               'Ticket %s does not exist.' % (ticket_id))
         if not isinstance(file_name, basestring):
             self.__raise_fault(meth_name, 'Invalid file name')
 
@@ -238,7 +238,7 @@ class DummyTrac(object):
             raise TypeError('cannot marshal None unless allow_none is enabled')
         elif not self.__ticket_map.has_key(ticket_id):
             self.__raise_fault(meth_name,
-                               'TicketWrapper %s does not exist.' % (ticket_id))
+                               'Ticket %s does not exist.' % (ticket_id))
 
         ticket = self.__ticket_map[ticket_id]
         return ticket.get_all_attachments()
@@ -254,7 +254,7 @@ class DummyTrac(object):
             raise TypeError('cannot marshal None unless allow_none is enabled')
         if not self.__ticket_map.has_key(ticket_id):
             self.__raise_fault(meth_name,
-                               'TicketWrapper %s does not exist.' % (ticket_id))
+                               'Ticket %s does not exist.' % (ticket_id))
         if not isinstance(file_name, basestring):
             self.__raise_fault(meth_name, 'Invalid file name.')
 

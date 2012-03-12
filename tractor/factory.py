@@ -28,7 +28,6 @@ class TractorConfig(object):
 
     def __init__(self):
         self.settings = {}
-        self.global_settings = {}
 
     def parse(self, text):
         """
@@ -42,8 +41,6 @@ class TractorConfig(object):
             text = StringIO(text)
         ini_parser = SafeConfigParser()
         ini_parser.readfp(text)
-        if 'DEFAULT' in ini_parser.sections():
-            self.global_settings = dict(ini_parser.items('DEFAULT'))
         if 'tractor' in ini_parser.sections():
             found_req_keys = []
             invalid_keys = []
@@ -72,10 +69,7 @@ def make_api_from_config(config_file):
 
     :returns: :class:`TractorApi` instance
     """
-    try:
-        fp = open(config_file, 'r')
-    except IOError:
-        pass
+    fp = open(config_file, 'r')
     cnf = TractorConfig()
     cnf.parse(fp)
     return make_api(**cnf.settings)
